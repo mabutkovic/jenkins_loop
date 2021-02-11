@@ -3,6 +3,7 @@ pipeline {
     agent none
     stages {
         stage('Create List') {
+            agent {node 'master'}
             steps {
                 script {
                     // you may create your list here, lets say reading from a file after checkout
@@ -16,6 +17,7 @@ pipeline {
             }
         }
         stage('Dynamic Stages') {
+            agent {node 'master'}
             steps {
                 script {
                     for(int i=0; i < list.size(); i++) {
