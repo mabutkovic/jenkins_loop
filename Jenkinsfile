@@ -1,15 +1,35 @@
+def list
 pipeline {
-    agent any
+    agent none
     stages {
-        stage('Example') {
+        stage('Create List') {
+            agent {node 'nodename'}
             steps {
-                echo 'Hello World'
-
                 script {
-                    def browsers = ['chrome', 'firefox']
-                    for (int i = 0; i < browsers.size(); ++i) {
-                        echo "Testing the ${browsers[i]} browser"
+                    // you may create your list here, lets say reading from a file after checkout
+                    list = ["Test-1", "Test-2", "Test-3", "Test-4", "Test-5"]
+                }
+            }
+            post {
+                cleanup {
+                    cleanWs()
+                }
+            }
+        }
+        stage('Dynamic Stages') {
+            agent {node 'nodename'}
+            steps {
+                script {
+                    for(int i=0; i < list.size(); i++) {
+                        stage(list[i]){
+                            echo "Element: $i"
+                        }
                     }
+                }
+            }
+            post {
+                cleanup {
+                    cleanWs()
                 }
             }
         }
