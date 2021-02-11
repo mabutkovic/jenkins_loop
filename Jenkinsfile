@@ -1,4 +1,5 @@
-def list
+def list_projects
+def list_environments
 pipeline {
     agent none
     stages {
