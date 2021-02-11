@@ -1,18 +1,8 @@
-def list_projects
-def list_environments
+def list_projects = ["Project1", "Project2"]
+def list_environments = ["Staging", "Prod"]
 pipeline {
     agent none
     stages {
-        stage('Create List') {
-            agent {node 'master'}
-            steps {
-                script {
-                    // you may create your list here, lets say reading from a file after checkout
-                    list_projects = ["Project1", "Project2"]
-                    list_environments = ["Staging", "Prod"]
-                }
-            }
-        }
         stage('Dynamic Stages') {
             agent {node 'master'}
             steps {
