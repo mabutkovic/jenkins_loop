@@ -10,11 +10,6 @@ pipeline {
                     list = ["Test-1", "Test-2", "Test-3", "Test-4", "Test-5"]
                 }
             }
-            post {
-                cleanup {
-                    cleanWs()
-                }
-            }
         }
         stage('Dynamic Stages') {
             agent {node 'master'}
@@ -25,11 +20,6 @@ pipeline {
                             echo "Element: $i"
                         }
                     }
-                }
-            }
-            post {
-                cleanup {
-                    cleanWs()
                 }
             }
         }
