@@ -7,7 +7,8 @@ pipeline {
             steps {
                 script {
                     // you may create your list here, lets say reading from a file after checkout
-                    list = ["Test-1", "Test-2", "Test-3", "Test-4", "Test-5"]
+                    list_projects = ["Project1", "Project2"]
+                    list_environments = ["Staging", "Prod"]
                 }
             }
         }
@@ -15,9 +16,13 @@ pipeline {
             agent {node 'master'}
             steps {
                 script {
-                    for(int i=0; i < list.size(); i++) {
-                        stage(list[i]){
-                            echo "Element: $i"
+                    for(int i=0; i < list_projects.size(); i++) {
+                        for (int j = 0; j < list_environments.size(); j++) {
+                            stage(list_projects[i]) {
+                                stage(list_environments[j]) {
+                                    echo "Element: $i"
+                                }
+                            }
                         }
                     }
                 }
